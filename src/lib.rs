@@ -11,8 +11,8 @@ fn is_rep(c: char) -> bool {
 }
 
 fn norm(s: &str) -> String {
-    let low = s.to_lowercase();
-    let t: String = if low.is_ascii() { low } else { low.nfkc().collect() };
+    let t: String = if s.is_ascii() { s.to_lowercase() }
+                else { s.nfkc().collect::<String>().to_lowercase() };
 
     // 1) collapse whitespace
     let mut a = String::with_capacity(t.len());
