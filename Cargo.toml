@@ -1,0 +1,18 @@
+[package]
+name = "fastnorm"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "fastnorm"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.22", features = ["extension-module", "abi3-py38"] }
+rayon = "1"
+unicode-normalization = "0.1"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
