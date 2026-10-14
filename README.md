@@ -1,5 +1,5 @@
 # fastnorm
 
-texts = ['aa', 'bb']
+texts = ['aa', 'bb']  
 fastnorm.normalize_batch(texts)
 
