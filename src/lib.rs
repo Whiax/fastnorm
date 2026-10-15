@@ -1,6 +1,7 @@
 use pyo3::prelude::*;
 use rayon::prelude::*;
 use unicode_normalization::UnicodeNormalization;
+use unicode_normalization::is_nfkc;
 
 // Python's str.split() also treats \x1c-\x1f as whitespace; Rust doesn't
 fn is_py_ws(c: char) -> bool {
@@ -12,7 +13,8 @@ fn is_rep(c: char) -> bool {
 
 fn norm(s: &str) -> String {
     let t: String = if s.is_ascii() { s.to_lowercase() }
-                else { s.nfkc().collect::<String>().to_lowercase() };
+        else if is_nfkc(s) { s.to_lowercase() }
+        else { s.nfkc().collect::<String>().to_lowercase() };
 
     // 1) collapse whitespace
     let mut a = String::with_capacity(t.len());
