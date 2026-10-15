@@ -37,20 +37,3 @@ print(fastnorm.normalize_batch(texts))
 
 Use batches of thousands of strings; tiny batches are dominated by call overhead.
 
-## Pure-Python fallback
-
-```python
-try:
-    from fastnorm import normalize_batch
-except ImportError:
-    def normalize_batch(texts):
-        return [normalize_text(t) for t in texts]
-```
-
-
-## Notes
-
-- Output is designed to match the reference Python `normalize_text`; verify on your data
-  with `assert normalize_batch(xs) == [normalize_text(x) for x in xs]`.
-- Unicode version differences between Python and Rust can affect very rare characters.
-- Strings containing lone surrogates raise an error.
